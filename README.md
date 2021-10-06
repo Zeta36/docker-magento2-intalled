@@ -1,8 +1,4 @@
-# doofinder-magento2
-
-[![Build Status](https://travis-ci.org/doofinder/doofinder-magento2.svg?branch=master)](https://travis-ci.org/doofinder/doofinder-magento2)
-
-**IMPORTANT:** If you are in trouble with the module, please contact Doofinder Support from the Doofinder website.
+# Docker compose for Magento2 installed in an unattended way
 
 ## Docker Environment
 
@@ -10,7 +6,6 @@ To use the docker environment clone this repo inside a folder structure like thi
 
 ```
 some_directory <- Name is not important
-  |- packages <- This repo code inside that folder
   |- src <- An empty folder to be used in the automatic installation process
 ```
 
@@ -18,7 +13,6 @@ And copy this repo's `docker-compose.yml` & `build.sh` & `.env` files to the roo
 
 ```
 some_directory <- Name is not important
-  |- packages <- This repo code inside that folder
   |- src <- An empty folder to be used in the automatic installation process
   |- docker-compose.yml
   |- build.sh
@@ -56,15 +50,13 @@ root@...:/app# gosu application php -d memory_limit=-1 ./bin/magento sampledata:
 root@...:/app# gosu application php -d memory_limit=-1 ./bin/magento setup:upgrade
 ```
 
-## Using the module
+## Exposing the server to internet
 
-In order to be able to create an account or login to an existing Doofinder account during the module initial setup, you will have to expose your local webserver to internet (to receive a callback).
+To expose our local server to internet we can use, for example; the utility Ngrok: https://dashboard.ngrok.com/get-started/setup
 
-To do so, you can use, for example; the utility Ngrok: https://dashboard.ngrok.com/get-started/setup
+Once we have the external ip created (and before running the docker-compose up) simply edit the .env file and set the MAGENTO_BASE_URL=ip (for example: MAGENTO_BASE_URL=7dd5-80-26-218-151.ngrok.io)
 
-And once you have the external ip created (and before running the `docker-compose up`) simply edit the `.env` file and set the MAGENTO_BASE_URL=ip (for example: MAGENTO_BASE_URL=7dd5-80-26-218-151.ngrok.io)
-
-So, when the installation process finished, instead of accessing to `http://localhost:80` you will use: `http://ip:80` (for example: `https://7dd5-80-26-218-151.ngrok.io`).
+So, when the installation process finished, instead of accessing to http://localhost:80 we will use: http://ip:80 (for example: https://7dd5-80-26-218-151.ngrok.io).
 
 ## Xdebug ready to use
 
