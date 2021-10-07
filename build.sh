@@ -74,6 +74,10 @@ if [[ "$MAGENTO_VERSION" == *"2.4."* ]]; then
 	--elasticsearch-host=elasticsearch
 fi
 
+mkdir /src/app/code
+mkdir /src/app/code/Doofinder
+mkdir /src/app/code/Doofinder/Feed
+cp -r /package/* /src/app/code/Doofinder/Feed
 cp -r /src/* /app
 chown -R www-data:www-data /app
 chmod -R 777 /app
@@ -81,21 +85,19 @@ rm -rf /src
 
 rm /app/pub/index.html
 
-if [[ "$MAGENTO_VERSION" == *"2.4."* ]]; then
-  php /app/bin/magento module:disable Magento_TwoFactorAuth
-fi
-
 php /app/bin/magento setup:upgrade
+
 php /app/bin/magento setup:di:compile
 php /app/bin/magento indexer:reindex
 php /app/bin/magento setup:static-content:deploy es_ES en_US -f
+
+if [[ "$MAGENTO_VERSION" == *"2.4."* ]]; then
+  php /app/bin/magento module:disable Magento_TwoFactorAuth --clear-static-content
+fi
+
 php /app/bin/magento cache:flush 
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance"
 
 rm -rf /app/var
-
-
-
-
