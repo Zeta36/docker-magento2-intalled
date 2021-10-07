@@ -86,7 +86,6 @@ rm -rf /src
 rm /app/pub/index.html
 
 php /app/bin/magento setup:upgrade
-
 php /app/bin/magento setup:di:compile
 php /app/bin/magento indexer:reindex
 php /app/bin/magento setup:static-content:deploy es_ES en_US -f
