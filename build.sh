@@ -93,8 +93,6 @@ fi
 
 php /app/bin/magento cache:flush 
 
-rm -rf /app/var
-
 chown -R www-data:www-data /app
 chmod -R 777 /app
 
