@@ -75,9 +75,6 @@ if [[ "$MAGENTO_VERSION" == *"2.4."* ]]; then
 fi
 
 mkdir /src/app/code
-mkdir /src/app/code/Doofinder
-mkdir /src/app/code/Doofinder/Feed
-cp -r /package/* /src/app/code/Doofinder/Feed
 cp -r /src/* /app
 chown -R www-data:www-data /app
 chmod -R 777 /app
@@ -96,7 +93,10 @@ fi
 
 php /app/bin/magento cache:flush 
 
+rm -rf /app/var
+
+chown -R www-data:www-data /app
+chmod -R 777 /app
+
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance"
-
-rm -rf /app/var
