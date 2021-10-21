@@ -96,5 +96,9 @@ php /app/bin/magento cache:flush
 chown -R www-data:www-data /app
 chmod -R 777 /app
 
+if [[ "$MAGENTO_VERSION" == *"2.3."* ]]; then
+  sed -i 's/xdebug_disable();/ /g' /app/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/_bootstrap.php
+fi
+
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance"
