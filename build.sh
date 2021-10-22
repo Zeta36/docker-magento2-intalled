@@ -78,7 +78,6 @@ mkdir /src/app/code
 cp -r /src/* /app
 chown -R www-data:www-data /app
 chmod -R 777 /app
-rm -rf /src
 
 rm /app/pub/index.html
 
